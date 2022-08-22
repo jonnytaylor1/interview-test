@@ -17,9 +17,9 @@ type ValueAndArrayOfValueIndexes = {
             if (value.length === 1) return uniqueValues.push(key)
             let isValid = true
             for (let j = 1; j < value.length; j++) {
-                const index1 = value[j-1];
-                const index2 = value[j];
-                if (index2 % index1 !== 0) {
+                const previousIndex = value[j-1];
+                const currentIndex = value[j];
+                if (currentIndex % previousIndex !== 0) {
                     isValid = false;
                     break;
                 }

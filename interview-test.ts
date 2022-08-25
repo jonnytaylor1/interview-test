@@ -1,36 +1,33 @@
-type InputAndArrayOfInputIndexes = {
-    [key: string]: number[]
+
+type ValueAndArrayOfValueIndexes = {
+    [index: string]: number[]
 }
 
 
- const uniqueValidNumbers = (N: number, inputArray: number[]): number|void => {
-     try {
-        if (!(Array.isArray(inputArray) && inputArray.length < 50 && inputArray.length > 0)) throw Error('input is not an array with length between 1 and 50')
-        const inputAndArrayOfInputIndexes: InputAndArrayOfInputIndexes = {}
+
+ const uniqueValidNumbers = (N: number, inputArray: number[]): number => {
+        const valueAndArrayOfValueIndexes: ValueAndArrayOfValueIndexes = {}
         for (let i = 0; i < inputArray.length; i++) {
-            const input = inputArray[i]
-            if (!inputAndArrayOfInputIndexes[input]) inputAndArrayOfInputIndexes[input] = [i + 1]
-            else inputAndArrayOfInputIndexes[input].push(i + 1)
+            const element = inputArray[i]
+            if (!valueAndArrayOfValueIndexes[element]) valueAndArrayOfValueIndexes[element] = [i + 1]
+            else valueAndArrayOfValueIndexes[element].push(i + 1)
         }
-        const uniqueInputs: string[] = []
+        const uniqueValues: string[] = []
     
-        Object.entries(inputAndArrayOfInputIndexes).forEach(([input, inputIndexes]) => {
-            if (inputIndexes.length === 1) return uniqueInputs.push(input)
+        Object.entries(valueAndArrayOfValueIndexes).forEach(([key, value]) => {
+            if (value.length === 1) return uniqueValues.push(key)
             let isValid = true
-            for (let j = 1; j < inputIndexes.length; j++) {
-                const previousIndex = inputIndexes[j-1];
-                const currentIndex = inputIndexes[j];
+            for (let j = 1; j < value.length; j++) {
+                const previousIndex = value[j-1];
+                const currentIndex = value[j];
                 if (currentIndex % previousIndex !== 0) {
                     isValid = false;
                     break;
                 }
             }
-            if (isValid) uniqueInputs.push((input))
+            if (isValid) uniqueValues.push((key))
         })
-        return uniqueInputs.length
-     } catch (e) {
-        console.warn(e)
-     }
+        return uniqueValues.length
 }
 
 const result1 = uniqueValidNumbers(3, [1,2,3])
